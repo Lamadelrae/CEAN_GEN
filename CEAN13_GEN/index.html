@@ -3,8 +3,8 @@
 <head>
 	<title>CEAN13_GEN</title>
 	<meta charset="UTF-8">
-	 <link rel="stylesheet" type="text/css" href="main.css">
-   </head>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <form>  
@@ -16,12 +16,15 @@
      O EAN13_GEN é um simples programa web desenvolvido por Matthew Almeida, com objetivo de ajudar clientes que não tem um EAN válido na receita e quer gerar. 
     </p>	
 	<div>
-	  <input maxlength = "12" required id="Input" class="input100" type="text" name="Input" placeholder="Input">
+	  <input maxlength= "12" required id="Input" class="input100" type="text"  name="Input" placeholder="Input">
 	</div>
 	<input type="button" value="Calcular EAN13" name="register_btn" onclick="multiply();" >
     </form>
    Seu EAN13:
    <p id="ean"></p>
+   Número de dígitos do seu EAN:
+   <p id="ean_digits"></p>
+   <p id="ean_error"></p>
   </div>
 
  </div>
@@ -72,10 +75,25 @@
  var Verificator_Product = (Verificator_End - Total);
 
  var all = (num1 + num2 + num3 + num4 + num5 + num6 + num7 + num8 + num9 + num10 + num11 + num12 + Verificator_Product);
- 
- document.getElementById("ean").innerHTML = all;
 
+
+
+  if(all == 14 ){
+  var error = "EAN maior que 13 dígitos";
+  document.getElementById("ean_error").innerHTML = error;
+ } 
+ else {
+   document.getElementById("ean").innerHTML = all;
+ }
+
+  var numberOfDigits = Math.floor(Math.log(all)/ Math.LN10 + 1)
+  document.getElementById("ean_digits").innerHTML = numberOfDigits;
 }
+
+
+
+
+
 </script>
   
 </html>
