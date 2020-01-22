@@ -4,7 +4,10 @@
 	<title>CEAN13_GEN</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="main.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
+<body style="background-color:#56baed;">
+  
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <form>  
@@ -12,14 +15,17 @@
       O que é o EAN13_GEN? 
      </h4>
       <br>
-     <p> 
+     <p class="container"> 
      O EAN13_GEN é um simples programa web desenvolvido por Matthew Almeida, com objetivo de ajudar clientes que não tem um EAN válido na receita e quer gerar. 
     </p>	
 	<div>
-	  <input maxlength= "12" required id="Input" class="input100" type="text"  name="Input" placeholder="Input">
-	</div>
+    <p hidden id="gen"></p>
+	<input maxlength= "12" required id="Input" class="input100" type="text"  name="Input" placeholder="Input">
 	<input type="button" value="Calcular EAN13" name="register_btn" onclick="multiply();" >
-    </form>
+  </div>
+  <p>Aqui você pode gerar aleatoriamente.</p>
+  <input type="button" value="Random" name="register_btn" onclick="multiply2();" >
+  </form>
    Seu EAN13:
    <p id="ean"></p>
    Número de dígitos do seu EAN:
@@ -28,11 +34,15 @@
   </div>
 
  </div>
+</body>
 
- <script> 
 
+<script> 
  function multiply(){
- var input = document.getElementById('Input').value; 
+
+ 
+ var input = document.getElementById("Input").value;
+
  var num1 = input.charAt(0)
  var num2 = input.charAt(1)
  var num3 = input.charAt(2)
@@ -90,10 +100,71 @@
   document.getElementById("ean_digits").innerHTML = numberOfDigits;
 }
 
+</script>
+
+<script> 
+ function multiply2(){
+ 
+ var gen = document.getElementById("gen").innerHTML = Math.floor(Math.random() * 1000000000000);
+
+ 
+ var input = gen.toString();
+
+ var num1 = input.charAt(0)
+ var num2 = input.charAt(1)
+ var num3 = input.charAt(2)
+ var num4 = input.charAt(3)
+ var num5 = input.charAt(4)
+ var num6 = input.charAt(5)
+ var num7 = input.charAt(6)
+ var num8 = input.charAt(7)
+ var num9 = input.charAt(8)
+ var num10 = input.charAt(9)
+ var num11 = input.charAt(10)
+ var num12 = input.charAt(11)
+
+ //calculating the verficator
+ var theProduct1 =  (num1 * 1);
+ var theProduct2 =  (num2 * 3);
+ var theProduct3 =  (num3 * 1);
+ var theProduct4 =  (num4 * 3);
+ var theProduct5 =  (num5 * 1);
+ var theProduct6 =  (num6 * 3);
+ var theProduct7 =  (num7 * 1);
+ var theProduct8 =  (num8 * 3);
+ var theProduct9 =  (num9 * 1);
+ var theProduct10 = (num10 * 3);
+ var theProduct11 = (num11 * 1);
+ var theProduct12 = (num12 * 3);
 
 
+ //Formula related to the End Verificator 
+ var Total = (theProduct1 + theProduct2 + theProduct3 + theProduct4 + theProduct5 + theProduct6 +  theProduct7 + theProduct8 + theProduct9 + theProduct10 + theProduct11 + theProduct12);
+    
+ var  Verificator_Start = (Total) / 10 ; 
+
+ var Round = Math.floor (Verificator_Start);
+
+ var Verificator_Mid = (Round) +1;
+
+ var Verificator_End = (Verificator_Mid ) * 10 ;
+
+ var Verificator_Product = (Verificator_End - Total);
+
+ var all = (num1 + num2 + num3 + num4 + num5 + num6 + num7 + num8 + num9 + num10 + num11 + num12 + Verificator_Product);
 
 
+  if(all == 14 ){
+  var error = "EAN maior que 13 dígitos";
+  document.getElementById("ean_error").innerHTML = error;
+ } 
+ else {
+   document.getElementById("ean").innerHTML = all;
+ }
+
+  var numberOfDigits = Math.floor(Math.log(all)/ Math.LN10 + 1)
+  document.getElementById("ean_digits").innerHTML = numberOfDigits;
+}
 </script>
   
 </html>
