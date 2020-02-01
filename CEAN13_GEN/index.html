@@ -16,7 +16,7 @@
      </h4>
       <br>
      <p class="container">
-     O EAN13_GEN é um simples programa web desenvolvido por Matthew Almeida, com objetivo de ajudar clientes que não tem um EAN válido na receita e quer gerar.
+     O EAN13_GEN é um simples programa desenvolvido por Matthew Almeida, com objetivo de ajudar clientes que não tem um EAN válido na receita e quer gerar.
     </p>
 	<div>
     <p hidden id="gen"></p>
@@ -30,7 +30,6 @@
    <p id="ean"></p>
    Número de dígitos do seu EAN:
    <p id="ean_digits"></p>
-   <p id="ean_error"></p>
   </div>
 
  </div>
@@ -86,18 +85,17 @@
 
  var all = (num1 + num2 + num3 + num4 + num5 + num6 + num7 + num8 + num9 + num10 + num11 + num12 + Verificator_Product);
 
-
-
-  if(all == 14 ){
-  var error = "EAN maior que 13 dígitos";
-  document.getElementById("ean_error").innerHTML = error;
- }
- else {
-   document.getElementById("ean").innerHTML = all;
- }
-
   var numberOfDigits = Math.floor(Math.log(all)/ Math.LN10 + 1)
   document.getElementById("ean_digits").innerHTML = numberOfDigits;
+
+   if(numberOfDigits != 13 ){
+  var error = "EAN menor ou maior  que 13 dígitos";
+  document.getElementById("ean").innerHTML = error;
+ }
+  else {
+   document.getElementById("ean").innerHTML = all;
+ }
+  
 }
 
 </script>
@@ -153,17 +151,19 @@
 
  var all = (num1 + num2 + num3 + num4 + num5 + num6 + num7 + num8 + num9 + num10 + num11 + num12 + Verificator_Product);
 
+  var numberOfDigits = Math.floor(Math.log(all)/ Math.LN10 + 1)
+  document.getElementById("ean_digits").innerHTML = numberOfDigits;
+ 
 
-  if(all == 14 ){
-  var error = "EAN maior que 13 dígitos";
-  document.getElementById("ean_error").innerHTML = error;
+ if(numberOfDigits != 13 ){
+  var error = "EAN menor ou maior  que 13 dígitos";
+  document.getElementById("ean").innerHTML = error;
  }
+  
+
  else {
    document.getElementById("ean").innerHTML = all;
  }
-
-  var numberOfDigits = Math.floor(Math.log(all)/ Math.LN10 + 1)
-  document.getElementById("ean_digits").innerHTML = numberOfDigits;
 }
 </script>
 
