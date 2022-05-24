@@ -75,11 +75,11 @@
       }
 
       let sum = 0;
-      for (let i = 1; i < ean.length - 1; i++) {
+      for (let i = 0; i < ean.length; i++) {
         let num = parseInt(ean[i].toString());
         let product;
 
-        if (i % 2 != 0) {
+        if ((i + 1) % 2 != 0) {
           product = num * 1;
         } else {
           product = num * 3;
