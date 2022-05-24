@@ -27,17 +27,17 @@
             <input
               maxlength="12"
               required
-              id="Input"
+              id="ean-input"
               class="input100"
               type="text"
-              name="Input"
+              name="ean-input"
               placeholder="Input"
             />
             <input
               type="button"
               value="Calcular EAN13"
               name="register_btn"
-              onclick="multiply();"
+              onclick="onClickGenerateEan();"
             />
           </div>
           <p>Aqui você pode gerar aleatoriamente.</p>
@@ -45,184 +45,51 @@
             type="button"
             value="Random"
             name="register_btn"
-            onclick="multiply2();"
+            onclick="onClickGenerateRandomEan();"
           />
         </form>
         Seu EAN13:
-        <p id="ean"></p>
-        Número de dígitos do seu EAN:
-        <p id="ean_digits"></p>
+        <p id="ean-output"></p>
       </div>
     </div>
   </body>
 
   <script>
-    function multiply() {
-      var input = document.getElementById("Input").value;
-
-      var num1 = input.charAt(0);
-      var num2 = input.charAt(1);
-      var num3 = input.charAt(2);
-      var num4 = input.charAt(3);
-      var num5 = input.charAt(4);
-      var num6 = input.charAt(5);
-      var num7 = input.charAt(6);
-      var num8 = input.charAt(7);
-      var num9 = input.charAt(8);
-      var num10 = input.charAt(9);
-      var num11 = input.charAt(10);
-      var num12 = input.charAt(11);
-
-      //calculating the verficator
-      var theProduct1 = num1 * 1;
-      var theProduct2 = num2 * 3;
-      var theProduct3 = num3 * 1;
-      var theProduct4 = num4 * 3;
-      var theProduct5 = num5 * 1;
-      var theProduct6 = num6 * 3;
-      var theProduct7 = num7 * 1;
-      var theProduct8 = num8 * 3;
-      var theProduct9 = num9 * 1;
-      var theProduct10 = num10 * 3;
-      var theProduct11 = num11 * 1;
-      var theProduct12 = num12 * 3;
-
-      //Formula related to the End Verificator
-      var Total =
-        theProduct1 +
-        theProduct2 +
-        theProduct3 +
-        theProduct4 +
-        theProduct5 +
-        theProduct6 +
-        theProduct7 +
-        theProduct8 +
-        theProduct9 +
-        theProduct10 +
-        theProduct11 +
-        theProduct12;
-
-      var Verificator_Start = Total / 10;
-
-      var Round = Math.floor(Verificator_Start);
-
-      var Verificator_Mid = Round + 1;
-
-      var Verificator_End = Verificator_Mid * 10;
-
-      var Verificator_Product = Verificator_End - Total;
-
-      var all =
-        num1 +
-        num2 +
-        num3 +
-        num4 +
-        num5 +
-        num6 +
-        num7 +
-        num8 +
-        num9 +
-        num10 +
-        num11 +
-        num12 +
-        Verificator_Product;
-
-      var numberOfDigits = Math.floor(Math.log(all) / Math.LN10 + 1);
-      document.getElementById("ean_digits").innerHTML = numberOfDigits;
-
-      if (numberOfDigits != 13) {
-        var error = "EAN menor ou maior  que 13 dígitos";
-        document.getElementById("ean").innerHTML = error;
-      } else {
-        document.getElementById("ean").innerHTML = all;
-      }
+    function onClickGenerateEan() {
+      document.getElementById("ean-output").innerHTML = calculateEan(
+        document.getElementById("ean-input").value
+      );
     }
-  </script>
 
-  <script>
-    function multiply2() {
-      var gen = (document.getElementById("gen").innerHTML = Math.floor(
-        Math.random() * 1000000000000
-      ));
+    function onClickGenerateRandomEan() {
+      let ean = Math.floor(
+        100000000000 + Math.random() * 900000000000
+      ).toString();
 
-      var input = gen.toString();
+      document.getElementById("ean-output").innerHTML = calculateEan(ean);
+    }
 
-      var num1 = input.charAt(0);
-      var num2 = input.charAt(1);
-      var num3 = input.charAt(2);
-      var num4 = input.charAt(3);
-      var num5 = input.charAt(4);
-      var num6 = input.charAt(5);
-      var num7 = input.charAt(6);
-      var num8 = input.charAt(7);
-      var num9 = input.charAt(8);
-      var num10 = input.charAt(9);
-      var num11 = input.charAt(10);
-      var num12 = input.charAt(11);
-
-      //calculating the verficator
-      var theProduct1 = num1 * 1;
-      var theProduct2 = num2 * 3;
-      var theProduct3 = num3 * 1;
-      var theProduct4 = num4 * 3;
-      var theProduct5 = num5 * 1;
-      var theProduct6 = num6 * 3;
-      var theProduct7 = num7 * 1;
-      var theProduct8 = num8 * 3;
-      var theProduct9 = num9 * 1;
-      var theProduct10 = num10 * 3;
-      var theProduct11 = num11 * 1;
-      var theProduct12 = num12 * 3;
-
-      //Formula related to the End Verificator
-      var Total =
-        theProduct1 +
-        theProduct2 +
-        theProduct3 +
-        theProduct4 +
-        theProduct5 +
-        theProduct6 +
-        theProduct7 +
-        theProduct8 +
-        theProduct9 +
-        theProduct10 +
-        theProduct11 +
-        theProduct12;
-
-      var Verificator_Start = Total / 10;
-
-      var Round = Math.floor(Verificator_Start);
-
-      var Verificator_Mid = Round + 1;
-
-      var Verificator_End = Verificator_Mid * 10;
-
-      var Verificator_Product = Verificator_End - Total;
-
-      var all =
-        num1 +
-        num2 +
-        num3 +
-        num4 +
-        num5 +
-        num6 +
-        num7 +
-        num8 +
-        num9 +
-        num10 +
-        num11 +
-        num12 +
-        Verificator_Product;
-
-      var numberOfDigits = Math.floor(Math.log(all) / Math.LN10 + 1);
-      document.getElementById("ean_digits").innerHTML = numberOfDigits;
-
-      if (numberOfDigits != 13) {
-        var error = "EAN menor ou maior  que 13 dígitos";
-        document.getElementById("ean").innerHTML = error;
-      } else {
-        document.getElementById("ean").innerHTML = all;
+    function calculateEan(ean) {
+      if (ean.length != 12) {
+        return "";
       }
+
+      let sum = 0;
+      for (let i = 1; i < ean.length - 1; i++) {
+        let num = parseInt(ean[i].toString());
+        let product;
+
+        if (i % 2 != 0) {
+          product = num * 1;
+        } else {
+          product = num * 3;
+        }
+
+        sum += product;
+      }
+
+      let verificator = (Math.floor(sum / 10.0) + 1) * 10 - sum;
+      return ean + verificator.toString();
     }
   </script>
 </html>
